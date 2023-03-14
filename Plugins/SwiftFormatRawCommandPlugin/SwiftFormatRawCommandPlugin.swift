@@ -44,8 +44,8 @@ extension SwiftFormatRawCommandPlugin: XcodeCommandPlugin {
 #endif
 
 extension CommandPlugin {
-    func formatCode(in directory: PackagePlugin.Path, context: Context, arguments: [String]) throws {
-        print("Running SwiftFormat at \(directory.string)")
+    func formatCode(in directory: Path, context: Context, arguments: [String]) throws {
+        print("Running SwiftFormat at \(directory)")
 
         let tool = try context.tool(named: "swiftformat")
         let toolURL = URL(fileURLWithPath: tool.path.string)

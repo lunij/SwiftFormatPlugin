@@ -3,10 +3,7 @@ import PackagePlugin
 
 @main
 struct SwiftFormatPrebuildPlugin: BuildToolPlugin {
-    func createBuildCommands(
-        context: PackagePlugin.PluginContext,
-        target: PackagePlugin.Target
-    ) async throws -> [PackagePlugin.Command] {
+    func createBuildCommands(context: PluginContext, target: Target) async throws -> [Command] {
         guard target is SourceModuleTarget else {
             return []
         }
@@ -28,22 +25,17 @@ struct SwiftFormatPrebuildPlugin: BuildToolPlugin {
 import XcodeProjectPlugin
 
 extension SwiftFormatPrebuildPlugin: XcodeBuildToolPlugin {
-    func createBuildCommands(
-        context: XcodeProjectPlugin.XcodePluginContext,
-        target: XcodeProjectPlugin.XcodeTarget
-    ) throws -> [PackagePlugin.Command] {
+    func createBuildCommands(context: XcodePluginContext, target: XcodeTarget) throws -> [Command] {
         guard target is SourceModuleTarget else {
             return []
         }
 
-        let projectDirectory = context.xcodeProject.directory
-
         return [
             .prebuildCommand(
-                displayName: "Running SwiftFormat at \(projectDirectory)",
+                displayName: "Running SwiftFormat at \(context.xcodeProject.directory)",
                 executable: try context.tool(named: "swiftformat").path,
                 arguments: [
-                    projectDirectory
+                    context.xcodeProject.directory
                 ],
                 outputFilesDirectory: context.pluginWorkDirectory
             )

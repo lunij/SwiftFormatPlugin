@@ -15,7 +15,7 @@ struct SwiftFormatCommandPlugin: CommandPlugin {
             process.executableURL = toolUrl
             process.arguments = [
                 "--config",
-                "\(context.package.directory.string)/.swiftformat",
+                "\(context.package.directory)/.swiftformat",
                 "\(target.directory)"
             ]
 
