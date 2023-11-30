@@ -13,6 +13,8 @@ struct SwiftFormatPrebuildPlugin: BuildToolPlugin {
                 displayName: "Running SwiftFormat at \(target.directory)",
                 executable: try context.tool(named: "swiftformat").path,
                 arguments: [
+                    "--cache",
+                    context.pluginWorkDirectory,
                     target.directory
                 ],
                 outputFilesDirectory: context.pluginWorkDirectory
@@ -35,6 +37,8 @@ extension SwiftFormatPrebuildPlugin: XcodeBuildToolPlugin {
                 displayName: "Running SwiftFormat at \(context.xcodeProject.directory)",
                 executable: try context.tool(named: "swiftformat").path,
                 arguments: [
+                    "--cache",
+                    context.pluginWorkDirectory,
                     context.xcodeProject.directory
                 ],
                 outputFilesDirectory: context.pluginWorkDirectory
