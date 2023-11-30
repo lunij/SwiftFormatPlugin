@@ -12,8 +12,7 @@ let package = Package(
     ],
     products: [
         .plugin(name: "SwiftFormatCommandPlugin", targets: ["SwiftFormatCommandPlugin"]),
-        .plugin(name: "SwiftFormatPrebuildPlugin", targets: ["SwiftFormatPrebuildPlugin"]),
-        .plugin(name: "SwiftFormatRawCommandPlugin", targets: ["SwiftFormatRawCommandPlugin"])
+        .plugin(name: "SwiftFormatPrebuildPlugin", targets: ["SwiftFormatPrebuildPlugin"])
     ],
     targets: [
         .binaryTarget(
@@ -28,16 +27,6 @@ let package = Package(
         ),
         .plugin(
             name: "SwiftFormatCommandPlugin",
-            capability: .command(
-                intent: .sourceCodeFormatting(),
-                permissions: [
-                    .writeToPackageDirectory(reason: "SwiftFormat formats source files")
-                ]
-            ),
-            dependencies: ["SwiftFormatBinary"]
-        ),
-        .plugin(
-            name: "SwiftFormatRawCommandPlugin",
             capability: .command(
                 intent: .custom(verb: "swiftformat", description: "Formats Swift source files using SwiftFormat"),
                 permissions: [
