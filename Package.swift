@@ -17,14 +17,14 @@ let package = Package(
     ],
     targets: [
         .binaryTarget(
-            name: "swiftformat",
+            name: "SwiftFormatBinary",
             url: "https://github.com/nicklockwood/SwiftFormat/releases/download/0.52.10/swiftformat.artifactbundle.zip",
             checksum: "6c11b2d50ee6f914ee87e891ad4e4a32e1f82993a8ccecaebd3285ac767b86ce"
         ),
         .plugin(
             name: "SwiftFormatPrebuildPlugin",
             capability: .buildTool(),
-            dependencies: ["swiftformat"]
+            dependencies: ["SwiftFormatBinary"]
         ),
         .plugin(
             name: "SwiftFormatCommandPlugin",
@@ -34,7 +34,7 @@ let package = Package(
                     .writeToPackageDirectory(reason: "SwiftFormat formats source files")
                 ]
             ),
-            dependencies: ["swiftformat"]
+            dependencies: ["SwiftFormatBinary"]
         ),
         .plugin(
             name: "SwiftFormatRawCommandPlugin",
@@ -44,7 +44,7 @@ let package = Package(
                     .writeToPackageDirectory(reason: "SwiftFormat formats source files"),
                 ]
             ),
-            dependencies: ["swiftformat"]
+            dependencies: ["SwiftFormatBinary"]
         )
     ]
 )
