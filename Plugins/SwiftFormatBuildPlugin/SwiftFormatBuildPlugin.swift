@@ -2,22 +2,21 @@
 import PackagePlugin
 
 @main
-struct SwiftFormatPrebuildPlugin: BuildToolPlugin {
+struct SwiftFormatBuildPlugin: BuildToolPlugin {
     func createBuildCommands(context: PluginContext, target: Target) async throws -> [Command] {
         guard target is SourceModuleTarget else {
             return []
         }
 
         return [
-            .prebuildCommand(
+            .buildCommand(
                 displayName: "Running SwiftFormat at \(target.directory)",
                 executable: try context.tool(named: "swiftformat").path,
                 arguments: [
                     "--cache",
-                    context.pluginWorkDirectory,
+                    "ignore",
                     target.directory
-                ],
-                outputFilesDirectory: context.pluginWorkDirectory
+                ]
             )
         ]
     }
@@ -26,22 +25,21 @@ struct SwiftFormatPrebuildPlugin: BuildToolPlugin {
 #if canImport(XcodeProjectPlugin)
 import XcodeProjectPlugin
 
-extension SwiftFormatPrebuildPlugin: XcodeBuildToolPlugin {
+extension SwiftFormatBuildPlugin: XcodeBuildToolPlugin {
     func createBuildCommands(context: XcodePluginContext, target: XcodeTarget) throws -> [Command] {
         guard target is SourceModuleTarget else {
             return []
         }
 
         return [
-            .prebuildCommand(
+            .buildCommand(
                 displayName: "Running SwiftFormat at \(context.xcodeProject.directory)",
                 executable: try context.tool(named: "swiftformat").path,
                 arguments: [
                     "--cache",
-                    context.pluginWorkDirectory,
+                    "ignore",
                     context.xcodeProject.directory
-                ],
-                outputFilesDirectory: context.pluginWorkDirectory
+                ]
             )
         ]
     }

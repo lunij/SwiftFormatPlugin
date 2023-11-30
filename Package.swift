@@ -11,8 +11,8 @@ let package = Package(
         .tvOS(.v13)
     ],
     products: [
-        .plugin(name: "SwiftFormatCommandPlugin", targets: ["SwiftFormatCommandPlugin"]),
-        .plugin(name: "SwiftFormatPrebuildPlugin", targets: ["SwiftFormatPrebuildPlugin"])
+        .plugin(name: "SwiftFormatBuildPlugin", targets: ["SwiftFormatBuildPlugin"]),
+        .plugin(name: "SwiftFormatCommandPlugin", targets: ["SwiftFormatCommandPlugin"])
     ],
     targets: [
         .binaryTarget(
@@ -21,7 +21,7 @@ let package = Package(
             checksum: "6c11b2d50ee6f914ee87e891ad4e4a32e1f82993a8ccecaebd3285ac767b86ce"
         ),
         .plugin(
-            name: "SwiftFormatPrebuildPlugin",
+            name: "SwiftFormatBuildPlugin",
             capability: .buildTool(),
             dependencies: ["SwiftFormatBinary"]
         ),
